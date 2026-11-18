@@ -1,0 +1,9 @@
+{
+  // Static-only Worker serving the "Home" project list.
+  // Deployed at https://home.theston.workers.dev
+  "name": "home",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./public"
+  }
+}
