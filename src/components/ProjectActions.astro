@@ -1,0 +1,24 @@
+---
+import Icon from "./Icon.astro";
+import { codeUrl, issuesUrl, linkIcon, type Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+  class: string;
+}
+const { project, class: cls } = Astro.props;
+const { name, links } = project.data;
+---
+<div class={cls}>
+  {links.map((l) => (
+    <a class="btn btn-primary" href={l.url} rel="noopener" aria-label={`${l.label} — ${name}`}>
+      <Icon name={linkIcon(l.label)} size={17} /><span class="lbl">{l.label}</span>
+    </a>
+  ))}
+  <a class="btn" href={codeUrl(project)} rel="noopener" aria-label={`Code — ${name}`}>
+    <Icon name="git" size={17} /><span class="lbl">Code</span>
+  </a>
+  <a class="btn" href={issuesUrl(project)} rel="noopener" aria-label={`Signaler / suggérer — ${name}`}>
+    <Icon name="bug" size={17} /><span class="lbl">Signaler / suggérer</span>
+  </a>
+</div>

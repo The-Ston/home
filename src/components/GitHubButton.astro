@@ -1,0 +1,18 @@
+---
+// GitHub profile link: GitHub logo on the left, The-Ston's GitHub avatar on the right.
+import Icon from "./Icon.astro";
+import { PROFILE } from "../projects";
+import { safeImage } from "../lib/images";
+
+interface Props {
+  class?: string;
+  label?: string;
+}
+const { class: cls = "btn", label = "GitHub" } = Astro.props;
+const avatar = await safeImage(PROFILE.githubAvatar, 64);
+---
+<a class:list={[cls, "gh-btn"]} href={PROFILE.github} rel="noopener" aria-label={`Profil GitHub de ${PROFILE.name}`}>
+  <Icon name="github" size={18} />
+  <span class="lbl">{label}</span>
+  {avatar && <img class="gh-avatar" src={avatar.src} width="24" height="24" alt="" decoding="async" />}
+</a>

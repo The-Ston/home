@@ -1,0 +1,18 @@
+---
+// Generated line pattern used as the default project visual (one of four, picked by index).
+interface Props {
+  index: number;
+}
+const kind = Astro.props.index % 4;
+const range = (from: number, to: number, step: number) => {
+  const out: number[] = [];
+  for (let n = from; n <= to; n += step) out.push(n);
+  return out;
+};
+---
+<svg class="media-art" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+  {kind === 0 && range(40, 400, 40).map((r) => <circle cx="330" cy="30" r={r} />)}
+  {kind === 1 && range(-240, 400, 32).map((n) => <path d={`M${n} 240L${n + 240} 0`} />)}
+  {kind === 2 && range(16, 240, 28).map((n) => <path d={`M-20 ${n}q52.5-26 105 0t105 0 105 0 105 0`} />)}
+  {kind === 3 && range(0, 159, 1).map((n) => <circle cx={12 + (n % 16) * 25} cy={8 + Math.floor(n / 16) * 25} r="2" fill="currentColor" stroke="none" />)}
+</svg>

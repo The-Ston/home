@@ -1,5 +1,15 @@
-node_modules/
+# build output
+dist/
+.astro/
 .wrangler/
+
+# dependencies
+node_modules/
+
+# local only
+mockups/
 .dev.vars
+.env
+*.stackdump
 .DS_Store
 Thumbs.db

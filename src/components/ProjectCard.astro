@@ -1,0 +1,39 @@
+---
+import Icon from "./Icon.astro";
+import MediaArt from "./MediaArt.astro";
+import ProjectActions from "./ProjectActions.astro";
+import { safeImage } from "../lib/images";
+import { hueOf, initialOf, pad, pageUrl, type Project } from "../lib/projects";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const { name, description, tags, repo, cover, coverAlt, order } = project.data;
+const image = await safeImage(cover, 800);
+const haystack = [name, description, ...tags].join(" ").toLowerCase();
+---
+<article class="card" style={`--h: ${hueOf(project)}`} data-tags={JSON.stringify(tags)} data-hay={haystack}>
+  {/* The title link is the accessible one; the visual is a mouse shortcut to the same page. */}
+  <a class="media card-media" href={pageUrl(project)} tabindex="-1" aria-hidden="true">
+    {image ? (
+      <img class="media-image" src={image.src} width={image.width} height={image.height} alt={coverAlt ?? ""} loading="lazy" decoding="async" />
+    ) : (
+      <>
+        <MediaArt index={order} />
+        <span class="media-icon">{initialOf(project)}</span>
+      </>
+    )}
+    <span class="media-index">{pad(order + 1)}</span>
+    <span class="media-cta"><span>Voir la fiche</span><Icon name="arrow" size={14} /></span>
+  </a>
+  <div class="card-body">
+    <h3 class="card-title"><a href={pageUrl(project)}>{name}</a></h3>
+    <p class="card-repo mono"><Icon name="git" size={13} /><span>{repo}</span></p>
+    <p class="card-desc">{description}</p>
+    {tags.length > 0 && (
+      <ul class="tags" aria-label="Étiquettes">{tags.map((t) => <li class="tag">{t}</li>)}</ul>
+    )}
+    <ProjectActions project={project} class="card-actions" />
+  </div>
+</article>

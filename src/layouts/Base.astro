@@ -1,0 +1,56 @@
+---
+import "../styles/base.css";
+import { PROFILE } from "../projects";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Absolute URL of the link-preview image. */
+  image?: string;
+  skipTo: string;
+  skipLabel: string;
+}
+const { title, description, image, skipTo, skipLabel } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={PROFILE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    <meta name="theme-color" content="#f3f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c0d11" media="(prefers-color-scheme: dark)" />
+    <script is:inline>
+      // Resolve the theme before first paint to avoid a flash.
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem("theme"); } catch (e) {}
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href={skipTo}>{skipLabel}</a>
+    <slot />
+    <footer class="wrap site-footer">
+      <div class="footer-inner">
+        <p><strong>Un bug, une idée&nbsp;?</strong> Ouvre une issue sur le dépôt du projet concerné.</p>
+        <a class="mono" href={PROFILE.github} rel="noopener">github.com/{PROFILE.name}</a>
+      </div>
+    </footer>
+  </body>
+</html>

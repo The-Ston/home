@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { PROFILE } from "../projects";
+---
+<Base title={`Page introuvable — ${PROFILE.name}`} description="Cette page n'existe pas." skipTo="#contenu" skipLabel="Aller au contenu">
+  <main class="wrap not-found" id="contenu">
+    <p class="mono">404</p>
+    <h1>Page introuvable</h1>
+    <p>Cette page n'existe pas ou a été déplacée.</p>
+    <a class="btn btn-primary" href="/"><Icon name="back" size={17} /><span>Tous les projets</span></a>
+  </main>
+</Base>
+
+<style>
+  .not-found { min-height: 60vh; display: grid; align-content: center; justify-items: start; gap: .5rem; }
+  .not-found h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); letter-spacing: -.035em; }
+  .not-found p { margin: 0 0 1rem; color: var(--muted); }
+</style>

@@ -1,9 +1,10 @@
 {
-  // Static-only Worker serving the "Home" project list.
+  // Static-only Worker serving the Astro build output.
   // Deployed at https://home.theston.workers.dev
   "name": "home",
   "compatibility_date": "2026-11-01",
   "assets": {
-    "directory": "./public"
+    "directory": "./dist",
+    "not_found_handling": "404-page"
   }
 }

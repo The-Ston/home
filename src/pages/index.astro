@@ -1,0 +1,134 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import GitHubButton from "../components/GitHubButton.astro";
+import { PROFILE } from "../projects";
+import { getProjects } from "../lib/projects";
+import { avatarSource, safeImage } from "../lib/images";
+import "../styles/home.css";
+
+const projects = await getProjects();
+const tags = [...new Set(projects.flatMap((p) => p.data.tags))];
+const avatar = await safeImage(avatarSource, 176);
+const plural = (n: number, one: string, many: string) => `${n} ${n > 1 ? many : one}`;
+---
+<Base
+  title={`${PROFILE.name} — Projets`}
+  description={`La liste des projets de ${PROFILE.name} : applications, outils et expérimentations.`}
+  skipTo="#projets"
+  skipLabel="Aller aux projets"
+>
+  <header class="wrap">
+    <div class="panel profile">
+      <div class="cover">
+        <svg viewBox="0 0 800 160" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+          {Array.from({ length: 13 }, (_, i) => <circle cx="660" cy="10" r={40 + i * 50} />)}
+        </svg>
+        <div class="cover-tools">
+          <ThemeToggle class="glass-btn round" />
+        </div>
+      </div>
+      <div class="profile-main">
+        <div>
+          {avatar ? (
+            <img class="avatar avatar-img" src={avatar.src} width="88" height="88" alt="" />
+          ) : (
+            <div class="avatar" aria-hidden="true">TS</div>
+          )}
+          <h1>{PROFILE.name}</h1>
+          <p class="handle mono">github.com/{PROFILE.name}</p>
+          <p class="tagline">{PROFILE.tagline}</p>
+          <div class="cta">
+            <GitHubButton class="btn btn-primary" label="Profil GitHub" />
+            <a class="btn" href="#contribuer"><Icon name="bug" size={18} /><span>Contribuer</span></a>
+          </div>
+        </div>
+        <dl class="figures">
+          <div><dt>Projets</dt><dd>{projects.length}</dd></div>
+          <div><dt>Étiquettes</dt><dd>{tags.length}</dd></div>
+          <div><dt>Retours</dt><dd>Ouverts</dd></div>
+        </dl>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section" id="projets" aria-labelledby="projects-title">
+      <div class="toolbar">
+        <div>
+          <h2 id="projects-title">Projets</h2>
+          <p id="result" role="status">{plural(projects.length, "projet", "projets")}</p>
+        </div>
+        <div class="search-box" data-js-only hidden>
+          <Icon name="search" size={17} />
+          <label class="sr-only" for="search">Rechercher un projet</label>
+          <input class="search" id="search" type="search" placeholder="Rechercher un projet…" autocomplete="off" />
+        </div>
+      </div>
+      {tags.length > 1 && (
+        <div class="filters" id="filters" role="group" aria-label="Filtrer par étiquette" data-js-only hidden>
+          <button type="button" class="chip" data-tag="" aria-pressed="true"><span>Tous</span></button>
+          {tags.map((t) => <button type="button" class="chip" data-tag={t} aria-pressed="false"><span>{t}</span></button>)}
+        </div>
+      )}
+      <div class:list={["grid", { "is-pair": projects.length <= 2 }]} id="grid" data-total={projects.length}>
+        {projects.map((p) => <ProjectCard project={p} />)}
+      </div>
+      <p class="empty" id="empty" hidden>Aucun projet ne correspond à cette recherche.</p>
+      {projects.length === 0 && <p class="empty">Aucun projet pour le moment.</p>}
+    </section>
+
+    <section class="section" id="contribuer" aria-labelledby="contrib-title">
+      <div class="toolbar">
+        <div>
+          <h2 id="contrib-title">Contribuer</h2>
+          <p>Un bug bien décrit ou une idée suffit, pas besoin de savoir coder.</p>
+        </div>
+      </div>
+      <ol class="steps">
+        <li class="step"><span class="step-num" aria-hidden="true">1</span><h3>Choisis le projet</h3><p>Chaque carte a un lien «&nbsp;Signaler / suggérer&nbsp;» qui mène aux issues du bon dépôt.</p></li>
+        <li class="step"><span class="step-num" aria-hidden="true">2</span><h3>Décris le bug ou l'idée</h3><p>Ce que tu attendais, ce qui s'est passé, et ton appareil ou ta version si c'est un bug.</p></li>
+        <li class="step"><span class="step-num" aria-hidden="true">3</span><h3>On en discute</h3><p>La suite se passe directement sur l'issue, en public.</p></li>
+      </ol>
+    </section>
+  </main>
+</Base>
+
+<script>
+  // Search and tag filters working together. Cards are rendered at build time;
+  // without JavaScript every project stays visible and the controls stay hidden.
+  const grid = document.getElementById("grid")!;
+  const search = document.getElementById("search") as HTMLInputElement;
+  const status = document.getElementById("result")!;
+  const empty = document.getElementById("empty")!;
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>("#filters .chip"));
+  const cards = Array.from(grid.querySelectorAll<HTMLElement>(".card"));
+  const total = cards.length;
+  let activeTag = "";
+
+  document.querySelectorAll<HTMLElement>("[data-js-only]").forEach((el) => (el.hidden = false));
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    for (const card of cards) {
+      const tags: string[] = JSON.parse(card.dataset.tags || "[]");
+      const ok = (!activeTag || tags.includes(activeTag)) && (!q || (card.dataset.hay || "").includes(q));
+      card.hidden = !ok;
+      if (ok) shown++;
+    }
+    empty.hidden = shown > 0 || total === 0;
+    chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.tag === activeTag)));
+    status.textContent = `${shown} ${shown > 1 ? "projets" : "projet"}${shown !== total ? ` sur ${total}` : ""}`;
+  }
+
+  chips.forEach((c) =>
+    c.addEventListener("click", () => {
+      activeTag = c.dataset.tag || "";
+      apply();
+    }),
+  );
+  search.addEventListener("input", apply);
+</script>

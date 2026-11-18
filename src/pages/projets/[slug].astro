@@ -1,0 +1,228 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import MediaArt from "../../components/MediaArt.astro";
+import ProjectActions from "../../components/ProjectActions.astro";
+import ThemeToggle from "../../components/ThemeToggle.astro";
+import GitHubButton from "../../components/GitHubButton.astro";
+import { PROFILE } from "../../projects";
+import { safeImage } from "../../lib/images";
+import { codeUrl, getProjects, hueOf, initialOf, issuesUrl, pageUrl, type Project } from "../../lib/projects";
+import "../../styles/project.css";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project, projects } }));
+}
+
+interface Props {
+  project: Project;
+  projects: Project[];
+}
+const { project, projects } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+
+const cover = await safeImage(d.cover, 1600);
+const icon = await safeImage(d.icon, 192);
+const shots = (
+  await Promise.all(
+    d.screenshots.map(async (s) => {
+      const thumb = await safeImage(s.src, 640);
+      const full = await safeImage(s.src, 1800);
+      return thumb && full ? { ...s, thumb, full } : null;
+    }),
+  )
+).filter((s) => s !== null);
+const others = await Promise.all(
+  projects.filter((p) => p.id !== project.id).map(async (p) => ({ p, img: await safeImage(p.data.icon ?? p.data.cover, 160) })),
+);
+const ogImage = d.cover && /^https?:/.test(d.cover) ? d.cover : undefined;
+---
+<Base title={`${d.name} — ${PROFILE.name}`} description={d.description} image={ogImage} skipTo="#contenu" skipLabel="Aller au contenu">
+  <header class="wrap topbar">
+    <a class="btn" id="back" href="/"><Icon name="back" size={17} /><span>Tous les projets</span></a>
+    <a class="brand" href="/">{PROFILE.name}</a>
+    <GitHubButton class="btn gh" />
+    <ThemeToggle class="btn round" />
+  </header>
+
+  <main class="wrap" id="contenu" style={`--h: ${hueOf(project)}`}>
+    <article>
+      <section class="panel hero" aria-labelledby="project-name">
+        <div class="media hero-media" aria-hidden={cover ? undefined : "true"}>
+          {cover ? (
+            <img class="media-image" src={cover.src} width={cover.width} height={cover.height} alt={d.coverAlt ?? ""} />
+          ) : (
+            <MediaArt index={d.order} />
+          )}
+        </div>
+        <div class="hero-main">
+          <div>
+            {icon ? (
+              <img class="media-icon hero-icon hero-icon-img" src={icon.src} width="96" height="96" alt="" />
+            ) : (
+              <div class="media-icon hero-icon" aria-hidden="true">{initialOf(project)}</div>
+            )}
+            <h1 id="project-name">{d.name}</h1>
+            <p class="hero-repo mono"><Icon name="git" size={14} /><span>{d.repo}</span></p>
+            <p class="lead">{d.description}</p>
+            {d.tags.length > 0 && <ul class="tags" aria-label="Étiquettes">{d.tags.map((t) => <li class="tag">{t}</li>)}</ul>}
+          </div>
+          <ProjectActions project={project} class="hero-actions" />
+        </div>
+      </section>
+
+      <div class="cols">
+        <div class="content">
+          {shots.length > 0 && (
+            <section class="panel block" aria-labelledby="shots-title">
+              <div class="h2-row"><h2 id="shots-title">Captures d'écran</h2></div>
+              <ul class="gallery" id="gallery">
+                {shots.map((s, i) => (
+                  <li>
+                    <button
+                      type="button"
+                      class="shot"
+                      data-index={i}
+                      data-full={s.full.src}
+                      data-alt={s.alt}
+                      data-caption={s.caption ?? ""}
+                      aria-label={`Agrandir la capture ${i + 1} sur ${shots.length}${s.caption ? ` : ${s.caption}` : ""}`}
+                    >
+                      <img src={s.thumb.src} width={s.thumb.width} height={s.thumb.height} alt={s.alt} loading="lazy" decoding="async" />
+                      {s.caption && <span class="shot-cap">{s.caption}</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <section class="panel block" aria-labelledby="about-title">
+            <div class="h2-row"><h2 id="about-title">Présentation</h2></div>
+            <div class="prose"><Content /></div>
+            <h3>Un bug, une idée&nbsp;?</h3>
+            <p>
+              Les retours passent par les issues GitHub du dépôt&nbsp;:{" "}
+              <a href={issuesUrl(project)} rel="noopener">signaler un bug ou suggérer une amélioration</a>.
+            </p>
+          </section>
+        </div>
+
+        <aside class="panel sheet" aria-labelledby="sheet-title">
+          <h2 id="sheet-title">Fiche</h2>
+          <dl>
+            <div><dt>Dernière version</dt><dd class:list={{ todo: !d.version }}>{d.version ?? "Aucune version publiée"}</dd></div>
+            <div>
+              <dt>Technologies</dt>
+              {d.technologies.length ? (
+                <dd><ul class="tags">{d.technologies.map((t) => <li class="tag">{t}</li>)}</ul></dd>
+              ) : (
+                <dd class="todo">à renseigner</dd>
+              )}
+            </div>
+            <div>
+              <dt>Plateformes</dt>
+              {d.platforms.length ? (
+                <dd><ul class="tags">{d.platforms.map((t) => <li class="tag">{t}</li>)}</ul></dd>
+              ) : (
+                <dd class="todo">à renseigner</dd>
+              )}
+            </div>
+            <div><dt>Statut</dt><dd class:list={{ todo: !d.status }}>{d.status ?? "à renseigner"}</dd></div>
+            <div><dt>Dépôt</dt><dd><a class="mono" href={codeUrl(project)} rel="noopener">{d.repo}</a></dd></div>
+          </dl>
+          <div class="sheet-links">
+            <a class="btn" href={codeUrl(project)} rel="noopener"><Icon name="git" size={17} /><span class="lbl">Code</span></a>
+            <a class="btn" href={issuesUrl(project)} rel="noopener"><Icon name="bug" size={17} /><span class="lbl">Signaler / suggérer</span></a>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    {others.length > 0 && (
+      <section class="others" aria-labelledby="others-title">
+        <h2 id="others-title">Autres projets</h2>
+        <ul>
+          {others.map(({ p, img }) => (
+            <li>
+              <a class="panel other" href={pageUrl(p)} style={`--h: ${hueOf(p)}`}>
+                <span class="media" aria-hidden="true">
+                  {img ? <img class="media-image" src={img.src} alt="" loading="lazy" /> : initialOf(p)}
+                </span>
+                <span>
+                  <strong>{p.data.name}</strong>
+                  <span class="d">{p.data.description}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </main>
+
+  {shots.length > 0 && (
+    <dialog class="lightbox" id="lightbox" aria-labelledby="lb-caption" style={`--h: ${hueOf(project)}`}>
+      <div class="lb-top">
+        <p id="lb-count"></p>
+        <button type="button" class="glass-btn round" id="lb-close" aria-label="Fermer la visionneuse"><Icon name="close" size={20} /></button>
+      </div>
+      <button type="button" class="glass-btn round" id="lb-prev" aria-label="Capture précédente" hidden={shots.length < 2}><Icon name="prev" size={20} /></button>
+      <div class="lb-stage" id="lb-stage"><img id="lb-img" alt="" /></div>
+      <button type="button" class="glass-btn round" id="lb-next" aria-label="Capture suivante" hidden={shots.length < 2}><Icon name="next" size={20} /></button>
+      <p class="lb-caption" id="lb-caption"></p>
+    </dialog>
+  )}
+</Base>
+
+<script>
+  // Screenshot lightbox. showModal() traps focus and closes on Esc;
+  // arrows / Home / End navigate, focus returns to the thumbnail on close.
+  const lightbox = document.getElementById("lightbox") as HTMLDialogElement | null;
+  if (lightbox) {
+    const thumbs = Array.from(document.querySelectorAll<HTMLButtonElement>("#gallery .shot"));
+    const img = document.getElementById("lb-img") as HTMLImageElement;
+    const stage = document.getElementById("lb-stage")!;
+    const caption = document.getElementById("lb-caption")!;
+    const count = document.getElementById("lb-count")!;
+    let current = 0;
+
+    const show = (i: number) => {
+      current = (i + thumbs.length) % thumbs.length;
+      const t = thumbs[current];
+      img.src = t.dataset.full || "";
+      img.alt = t.dataset.alt || "";
+      caption.textContent = t.dataset.caption || "";
+      count.textContent = `${current + 1} / ${thumbs.length}`;
+    };
+
+    thumbs.forEach((t, i) =>
+      t.addEventListener("click", () => {
+        show(i);
+        document.documentElement.style.overflow = "hidden";
+        lightbox.showModal();
+        document.getElementById("lb-close")!.focus();
+      }),
+    );
+    lightbox.addEventListener("close", () => {
+      document.documentElement.style.overflow = "";
+      thumbs[current]?.focus();
+    });
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox || e.target === stage) lightbox.close();
+    });
+    lightbox.addEventListener("keydown", (e) => {
+      const moves: Record<string, number> = { ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: thumbs.length - 1 };
+      if (e.key in moves) {
+        e.preventDefault();
+        show(moves[e.key]);
+      }
+    });
+    document.getElementById("lb-close")!.addEventListener("click", () => lightbox.close());
+    document.getElementById("lb-prev")!.addEventListener("click", () => show(current - 1));
+    document.getElementById("lb-next")!.addEventListener("click", () => show(current + 1));
+  }
+</script>
