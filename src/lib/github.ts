@@ -5,6 +5,9 @@ const TIMEOUT_MS = 10_000;
 
 /** Base URL of a file in the default branch of a repository. */
 export function rawUrl(repo: string, path = ""): string {
+  // SHOWCASE_BASE_URL serves "<owner>/<name>/..." from elsewhere (local preview).
+  const base = process.env.SHOWCASE_BASE_URL;
+  if (base) return `${base.replace(/\/$/, "")}/${repo}/${path}`;
   return `https://raw.githubusercontent.com/${repo}/HEAD/${path}`;
 }
 

@@ -13,6 +13,7 @@ export interface ProjectRef {
 export const PROJECTS: ProjectRef[] = [
   { slug: "pilalheur", repo: "The-Ston/Pilalheur-releases" },
   { slug: "jensuisla", repo: "The-Ston/Jensuisla" },
+  { slug: "ubchaos", repo: "The-Ston/UBChaos" },
 ];
 
 export const PROFILE = {

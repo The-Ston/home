@@ -42,7 +42,6 @@ const plural = (n: number, one: string, many: string) => `${n} ${n > 1 ? many : 
           <p class="tagline">{PROFILE.tagline}</p>
           <div class="cta">
             <GitHubButton class="btn btn-primary" label="Profil GitHub" />
-            <a class="btn" href="#contribuer"><Icon name="bug" size={18} /><span>Contribuer</span></a>
           </div>
         </div>
         <dl class="figures">
@@ -78,20 +77,6 @@ const plural = (n: number, one: string, many: string) => `${n} ${n > 1 ? many : 
       </div>
       <p class="empty" id="empty" hidden>Aucun projet ne correspond à cette recherche.</p>
       {projects.length === 0 && <p class="empty">Aucun projet pour le moment.</p>}
-    </section>
-
-    <section class="section" id="contribuer" aria-labelledby="contrib-title">
-      <div class="toolbar">
-        <div>
-          <h2 id="contrib-title">Contribuer</h2>
-          <p>Un bug bien décrit ou une idée suffit, pas besoin de savoir coder.</p>
-        </div>
-      </div>
-      <ol class="steps">
-        <li class="step"><span class="step-num" aria-hidden="true">1</span><h3>Choisis le projet</h3><p>Chaque carte a un lien «&nbsp;Signaler / suggérer&nbsp;» qui mène aux issues du bon dépôt.</p></li>
-        <li class="step"><span class="step-num" aria-hidden="true">2</span><h3>Décris le bug ou l'idée</h3><p>Ce que tu attendais, ce qui s'est passé, et ton appareil ou ta version si c'est un bug.</p></li>
-        <li class="step"><span class="step-num" aria-hidden="true">3</span><h3>On en discute</h3><p>La suite se passe directement sur l'issue, en public.</p></li>
-      </ol>
     </section>
   </main>
 </Base>

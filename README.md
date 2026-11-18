@@ -66,7 +66,12 @@ npm run preview   # sert dist/ avec Wrangler, comme en production
 npm run check     # vérification des types
 ```
 
-Variable d'environnement optionnelle au build : `GITHUB_TOKEN` (relève la limite de l'API GitHub, 60 requêtes/heure sans).
+Variables d'environnement optionnelles au build :
+
+- `GITHUB_TOKEN` : relève la limite de l'API GitHub (60 requêtes/heure sans).
+- `SHOWCASE_BASE_URL` : lit les `showcase/` depuis une autre adresse que GitHub, pour prévisualiser
+  un showcase avant de le publier. Le serveur doit exposer `<owner>/<repo>/showcase/...`,
+  par exemple `SHOWCASE_BASE_URL=http://127.0.0.1:8790` sert `http://127.0.0.1:8790/The-Ston/UBChaos/showcase/project.md`.
 
 ## Déploiement
 

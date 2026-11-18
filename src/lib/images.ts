@@ -1,4 +1,4 @@
-import { getImage } from "astro:assets";
+import { getImage, inferRemoteSize } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
 export interface SafeImage {
@@ -16,11 +16,17 @@ export async function safeImage(src: string | ImageMetadata | undefined, width: 
   if (!src) return null;
   if (typeof src === "string" && src.startsWith("/") && !src.startsWith("//")) return { src };
   try {
-    const img = await getImage(
-      typeof src === "string"
-        ? { src, width, inferSize: true, format: "webp" }
-        : { src, width, format: "webp" },
-    );
+    // Remote images: read the real size first and scale the height with the
+    // width, otherwise the original height is kept and the image gets cropped.
+    let options;
+    if (typeof src === "string") {
+      const size = await inferRemoteSize(src);
+      const w = Math.min(width, size.width);
+      options = { src, width: w, height: Math.round((size.height * w) / size.width), format: "webp" as const };
+    } else {
+      options = { src, width: Math.min(width, src.width), format: "webp" as const };
+    }
+    const img = await getImage(options);
     return {
       src: img.src,
       width: Number(img.attributes.width) || undefined,
