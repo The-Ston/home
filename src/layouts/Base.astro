@@ -1,6 +1,7 @@
 ---
 import "../styles/base.css";
 import { PROFILE } from "../projects";
+import { version } from "../../package.json";
 
 interface Props {
   title: string;
@@ -49,7 +50,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <footer class="wrap site-footer">
       <div class="footer-inner">
         <p><strong>Un bug, une idée&nbsp;?</strong> Ouvre une issue sur le dépôt du projet concerné.</p>
-        <a class="mono" href={PROFILE.github} rel="noopener">github.com/{PROFILE.name}</a>
+        <p class="footer-links">
+          <a class="mono" href={PROFILE.github} rel="noopener">github.com/{PROFILE.name}</a>
+          <a class="mono version" href={`${PROFILE.github}/home/blob/main/CHANGELOG.md`} rel="noopener" title="Historique des versions">v{version}</a>
+        </p>
       </div>
     </footer>
   </body>

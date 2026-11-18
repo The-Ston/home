@@ -173,3 +173,5 @@ a { color: inherit; }
 .footer-inner p { margin: 0; }
 .footer-inner strong, .footer-inner a { color: var(--text); }
 .footer-inner a { text-underline-offset: 3px; }
+.footer-links { display: flex; align-items: center; gap: 1rem; }
+.footer-inner a.version { color: var(--muted); font-size: .85rem; }

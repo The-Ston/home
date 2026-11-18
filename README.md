@@ -73,6 +73,16 @@ Variables d'environnement optionnelles au build :
   un showcase avant de le publier. Le serveur doit exposer `<owner>/<repo>/showcase/...`,
   par exemple `SHOWCASE_BASE_URL=http://127.0.0.1:8790` sert `http://127.0.0.1:8790/The-Ston/UBChaos/showcase/project.md`.
 
+## Versions
+
+Les versions suivent [Semantic Versioning](https://semver.org/lang/fr/) et sont décrites dans `CHANGELOG.md`.
+Le numéro affiché dans le pied de page est lu depuis `package.json`.
+
+- Noter chaque changement sous `## [Unreleased]` dans `CHANGELOG.md`.
+- Pour sortir une version : mettre le numéro dans `package.json`, renommer `[Unreleased]`
+  en `[X.Y.Z] - AAAA-MM-JJ` (et rouvrir une section `[Unreleased]` vide), mettre à jour les liens
+  en bas du changelog, committer puis taguer `vX.Y.Z`.
+
 ## Déploiement
 
 Cloudflare Workers Builds, branché sur ce dépôt : chaque push sur `main` lance `npm run build` puis `npx wrangler deploy`.
