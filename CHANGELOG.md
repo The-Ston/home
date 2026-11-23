@@ -4,6 +4,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versio
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-23
+
 ### Fixed
 - Project versions are read from the github.com release redirect instead of the REST API, whose
   anonymous rate limit left the deployed pages showing "Aucune version publiée".
@@ -52,6 +54,7 @@ First numbered version, covering everything built since the project started.
 ### Fixed
 - Remote images are no longer cropped when resized.
 
-[Unreleased]: https://github.com/The-Ston/home/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/The-Ston/home/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/The-Ston/home/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/The-Ston/home/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/The-Ston/home/releases/tag/v0.1.0
