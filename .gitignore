@@ -13,3 +13,6 @@ mockups/
 *.stackdump
 .DS_Store
 Thumbs.db
+
+# Agentation notes (dev only)
+.agentation/

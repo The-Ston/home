@@ -3,17 +3,37 @@
 // so nothing here ships in the production build.
 ---
 <script>
-  // Agentation: click elements to annotate them, then copy structured
-  // feedback (selectors, text, positions) to paste into an AI agent.
+  // Agentation: click elements to annotate them. Every change is mirrored to
+  // the dev server (dev/agentation-notes.mjs), which writes .agentation/notes.md.
   if (import.meta.env.DEV) {
-    const [{ createElement }, { createRoot }, { Agentation }] = await Promise.all([
+    const [{ createElement }, { createRoot }, { Agentation, loadAnnotations }] = await Promise.all([
       import("react"),
       import("react-dom/client"),
       import("agentation"),
     ]);
+
+    const page = location.pathname;
+    const send = (op: string, data: object) =>
+      fetch("/__agentation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ op, page, ...data }),
+      }).catch((err) => console.warn("[agentation] sync failed", err));
+
+    // Push notes already stored in this browser (e.g. made before the sync existed).
+    send("sync", { annotations: loadAnnotations(page) });
+
     const host = document.createElement("div");
     host.id = "agentation-root";
     document.body.appendChild(host);
-    createRoot(host).render(createElement(Agentation));
+    createRoot(host).render(
+      createElement(Agentation, {
+        appName: "home",
+        onAnnotationAdd: (annotation) => send("add", { annotation }),
+        onAnnotationUpdate: (annotation) => send("update", { annotation }),
+        onAnnotationDelete: (annotation) => send("delete", { annotation }),
+        onAnnotationsClear: (annotations) => send("clear", { annotations }),
+      }),
+    );
   }
 </script>
