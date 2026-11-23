@@ -4,6 +4,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versio
 
 ## [Unreleased]
 
+### Fixed
+- Project versions are read from the github.com release redirect instead of the REST API, whose
+  anonymous rate limit left the deployed pages showing "Aucune version publiée".
+
 ## [0.2.0] - 2026-11-23
 
 ### Added

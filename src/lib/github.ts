@@ -50,14 +50,30 @@ export interface RepoMeta {
   latestVersion?: string;
 }
 
+/**
+ * Tag of the latest release, read from the redirect of github.com/<repo>/releases/latest
+ * (".../releases/tag/<tag>"), which is not subject to the REST API rate limit.
+ * Without any release GitHub redirects to ".../releases": undefined.
+ */
+async function fetchLatestTag(repo: string): Promise<string | undefined> {
+  try {
+    const res = await fetch(`${repoUrl(repo)}/releases/latest`, {
+      method: "HEAD",
+      redirect: "manual",
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    const match = res.headers.get("location")?.match(/\/releases\/tag\/([^/?#]+)$/);
+    return match ? decodeURIComponent(match[1]) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /** Primary language and latest release tag of a repository. */
 export async function fetchRepoMeta(repo: string): Promise<RepoMeta> {
-  const [info, release] = await Promise.all([
+  const [info, latestVersion] = await Promise.all([
     fetchJson<{ language: string | null }>(`https://api.github.com/repos/${repo}`),
-    fetchJson<{ tag_name: string }>(`https://api.github.com/repos/${repo}/releases/latest`),
+    fetchLatestTag(repo),
   ]);
-  return {
-    language: info?.language ?? undefined,
-    latestVersion: release?.tag_name ?? undefined,
-  };
+  return { language: info?.language ?? undefined, latestVersion };
 }
