@@ -8,7 +8,7 @@ import ThemeToggle from "../../components/ThemeToggle.astro";
 import GitHubButton from "../../components/GitHubButton.astro";
 import { PROFILE } from "../../projects";
 import { safeImage } from "../../lib/images";
-import { codeUrl, getProjects, hueOf, initialOf, issuesUrl, pageUrl, type Project } from "../../lib/projects";
+import { codeUrl, getProjects, hueOf, iconBg, initialOf, issuesUrl, pageUrl, type Project } from "../../lib/projects";
 import "../../styles/project.css";
 
 export async function getStaticPaths() {
@@ -61,7 +61,7 @@ const ogImage = d.cover && /^https?:/.test(d.cover) ? d.cover : undefined;
         <div class="hero-main">
           <div>
             {icon ? (
-              <img class="media-icon hero-icon hero-icon-img" src={icon.src} width="96" height="96" alt="" />
+              <img class="media-icon hero-icon hero-icon-img" src={icon.src} width="96" height="96" alt="" style={iconBg(project)} />
             ) : (
               <div class="media-icon hero-icon" aria-hidden="true">{initialOf(project)}</div>
             )}
@@ -104,10 +104,12 @@ const ogImage = d.cover && /^https?:/.test(d.cover) ? d.cover : undefined;
             <div class="h2-row"><h2 id="about-title">Présentation</h2></div>
             <div class="prose"><Content /></div>
             <h3>Un bug, une idée&nbsp;?</h3>
-            <p>
-              Les retours passent par les issues GitHub du dépôt&nbsp;:{" "}
-              <a href={issuesUrl(project)} rel="noopener">signaler un bug ou suggérer une amélioration</a>.
-            </p>
+            <p>Les retours passent par les issues GitHub du dépôt.</p>
+            <div class="feedback-actions">
+              <a class="btn" href={issuesUrl(project)} rel="noopener" aria-label={`Signaler / suggérer — ${d.name}`}>
+                <Icon name="bug" size={17} /><span class="lbl">Signaler / suggérer</span>
+              </a>
+            </div>
           </section>
         </div>
 
@@ -132,7 +134,7 @@ const ogImage = d.cover && /^https?:/.test(d.cover) ? d.cover : undefined;
               )}
             </div>
             <div><dt>Statut</dt><dd class:list={{ todo: !d.status }}>{d.status ?? "à renseigner"}</dd></div>
-            <div><dt>Dépôt</dt><dd><a class="mono" href={codeUrl(project)} rel="noopener">{d.repo}</a></dd></div>
+            <div class="stacked"><dt>Dépôt</dt><dd><a class="mono" href={codeUrl(project)} rel="noopener">{d.repo}</a></dd></div>
           </dl>
           <div class="sheet-links">
             <a class="btn" href={codeUrl(project)} rel="noopener"><Icon name="git" size={17} /><span class="lbl">Code</span></a>
@@ -149,7 +151,7 @@ const ogImage = d.cover && /^https?:/.test(d.cover) ? d.cover : undefined;
           {others.map(({ p, img }) => (
             <li>
               <a class="panel other" href={pageUrl(p)} style={`--h: ${hueOf(p)}`}>
-                <span class="media" aria-hidden="true">
+                <span class:list={["media", { "has-image": img }]} aria-hidden="true" style={img ? iconBg(p) : undefined}>
                   {img ? <img class="media-image" src={img.src} alt="" loading="lazy" /> : initialOf(p)}
                 </span>
                 <span>

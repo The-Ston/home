@@ -12,7 +12,9 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export const hueOf = (p: Project) => HUES[p.data.order % HUES.length];
-export const initialOf = (p: Project) => p.data.name.charAt(0).toUpperCase();
+/** Inline style for an icon container: `iconBackground` from the showcase, else the CSS neutral default. */
+export const iconBg = (p: Project) => (p.data.iconBackground ? `--icon-image-bg: ${p.data.iconBackground}` : undefined);
+export const initialOf =(p: Project) => p.data.name.charAt(0).toUpperCase();
 export const pageUrl = (p: Project) => `/projets/${p.id}/`;
 export const codeUrl = (p: Project) => repoUrl(p.data.repo);
 export const issuesUrl = (p: Project) => `${repoUrl(p.data.repo)}/issues`;

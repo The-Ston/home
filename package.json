@@ -13,10 +13,13 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "agentation": "^3.1.2",
     "astro": "^7.4.12",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3",
     "wrangler": "^4.164.0"
   }

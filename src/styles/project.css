@@ -67,6 +67,9 @@ dialog.lightbox .glass-btn:hover { background: rgb(255 255 255 / .26); }
 .sheet dl div { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: .5rem .75rem; padding: .7rem 0; border-top: 1px solid var(--border); }
 .sheet dt { color: var(--muted); font-size: .88rem; }
 .sheet dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; min-width: 0; }
+.feedback-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+/* Long values (e.g. owner/repo) get the full width under their label instead of wrapping mid-name. */
+.sheet dl div.stacked { grid-template-columns: minmax(0, 1fr); gap: .2rem; }
 .sheet dd.todo { color: var(--muted); font-weight: 500; font-style: italic; }
 .sheet .tags .tag { font-weight: 600; }
 .sheet-links { display: grid; gap: .5rem; margin-top: .9rem; }
@@ -101,7 +104,9 @@ dialog.lightbox .glass-btn:hover { background: rgb(255 255 255 / .26); }
 .prose a { text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 .prose img { max-width: 100%; height: auto; border-radius: 12px; }
 .prose code { padding: .1rem .35rem; background: var(--surface-2); border-radius: 6px; font-size: .9em; }
-.hero-icon-img { object-fit: cover; background: var(--surface); }
+/* Real icon images: `iconBackground` (showcase) if set, else a neutral background instead of the generated gradient. */
+.hero-icon-img { object-fit: cover; background: var(--icon-image-bg, var(--surface)); }
+.other .media.has-image { background: var(--icon-image-bg, var(--surface-2)); }
 .other .media { color: #fff; }
 .topbar .gh .gh-avatar { box-shadow: none; }
 @media (max-width: 30rem) { .topbar .gh .gh-avatar { display: none; } }

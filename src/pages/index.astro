@@ -23,9 +23,6 @@ const plural = (n: number, one: string, many: string) => `${n} ${n > 1 ? many : 
   <header class="wrap">
     <div class="panel profile">
       <div class="cover">
-        <svg viewBox="0 0 800 160" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-          {Array.from({ length: 13 }, (_, i) => <circle cx="660" cy="10" r={40 + i * 50} />)}
-        </svg>
         <div class="cover-tools">
           <ThemeToggle class="glass-btn round" />
         </div>
@@ -46,7 +43,6 @@ const plural = (n: number, one: string, many: string) => `${n} ${n > 1 ? many : 
         </div>
         <dl class="figures">
           <div><dt>Projets</dt><dd>{projects.length}</dd></div>
-          <div><dt>Étiquettes</dt><dd>{tags.length}</dd></div>
           <div><dt>Retours</dt><dd>Ouverts</dd></div>
         </dl>
       </div>

@@ -5,8 +5,8 @@
 //   .agentation/notes.json  source of truth { pages: { [path]: Annotation[] }, resolved: string[] }
 //   .agentation/notes.md    human/agent-readable view, regenerated on every change
 //
-// Moving an annotation id to `resolved` (and removing it from `pages`) marks it
-// as processed: it is then ignored if the browser syncs it again.
+// POST { op: "resolve", page, ids } moves annotations to `resolved` (processed):
+// they are then ignored if the browser syncs them again.
 import fs from "node:fs";
 import path from "node:path";
 
@@ -52,7 +52,8 @@ function toMarkdown({ pages }) {
   return out.join("\n");
 }
 
-function apply(store, { op, page, annotation, annotations }) {
+function apply(store, msg) {
+  const { op, page, annotation, annotations } = msg;
   const list = (store.pages[page] ??= []);
   const open = (a) => a && !store.resolved.includes(a.id);
   const upsert = (a) => {
@@ -70,6 +71,12 @@ function apply(store, { op, page, annotation, annotations }) {
       break;
     case "clear": {
       const ids = new Set((annotations ?? []).map((a) => a.id));
+      store.pages[page] = list.filter((x) => !ids.has(x.id));
+      break;
+    }
+    case "resolve": { // mark notes as processed: { ids: string[] }
+      const ids = new Set(msg.ids ?? []);
+      store.resolved.push(...[...ids].filter((id) => !store.resolved.includes(id)));
       store.pages[page] = list.filter((x) => !ids.has(x.id));
       break;
     }

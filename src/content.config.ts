@@ -25,6 +25,11 @@ const projectSchema = z.object({
   coverAlt: z.string().optional(),
   /** Square app icon shown on the hero. */
   icon: z.string().optional(),
+  /** CSS color behind the icon (visible through transparent pixels). Neutral when unset. */
+  iconBackground: z
+    .string()
+    .regex(/^[#a-z0-9(),.%\s/-]+$/i, "must be a plain CSS color, e.g. #1b8a8f or hsl(180 60% 35%)")
+    .optional(),
   screenshots: z.array(screenshot).default([]),
   technologies: z.array(z.string()).default([]),
   platforms: z.array(z.string()).default([]),

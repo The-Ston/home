@@ -34,6 +34,7 @@ Site statique généré par [Astro](https://astro.build) et servi par un Worker 
    cover: cover.png             # chemins relatifs au dossier showcase/
    coverAlt: Écran principal de MonProjet
    icon: icon.png
+   iconBackground: "#1b8a8f"    # fond derrière une icône transparente (optionnel, neutre par défaut)
    screenshots:
      - src: screenshots/accueil.png
        alt: Écran d'accueil
