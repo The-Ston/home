@@ -1,0 +1,333 @@
+<svg class="cv-cover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <style>
+    .cv-cover {
+      --cv-wall1: #e6edf5; --cv-wall2: #c5d4e6; --cv-wash: #9db6d4; --cv-shade: #7590b6;
+      --cv-sky1: #8fb0d6; --cv-sky2: #f6e3d2; --cv-mist: #f4f7fb;
+      --cv-mtn1: #a9c0db; --cv-mtn2: #7f9dc3; --cv-mtn3: #5878a6; --cv-mtn4: #3b5a88;
+      --cv-moon: #fffdf6; --cv-glow: #ffd58a; --cv-star: #ffffff; --cv-frost: #ffffff;
+      --cv-wood1: #bba99b; --cv-wood2: #94837a; --cv-frame: #8d8083; --cv-ink: #2a4064;
+      --cv-screen1: #f1fbff; --cv-screen2: #a5d3ee; --cv-code: #2f5288; --cv-code2: #5f8fc4; --cv-light: #bfe6fa;
+      --cv-warm: #e6a94f; --cv-warm2: #b9772b; --cv-metal: #6b82a8; --cv-metal2: #c3d2e4;
+      --cv-crab: #ee6a30; --cv-crab2: #b9401a; --cv-crab3: #ffb07a;
+    }
+    :root[data-theme="dark"] .cv-cover {
+      --cv-wall1: #1a2743; --cv-wall2: #0e1729; --cv-wash: #2a406b; --cv-shade: #050912;
+      --cv-sky1: #0b1630; --cv-sky2: #34508a; --cv-mist: #4a68a0;
+      --cv-mtn1: #3b5589; --cv-mtn2: #1e3058; --cv-mtn3: #142242; --cv-mtn4: #0a1429;
+      --cv-moon: #fff4d8; --cv-glow: #ffc56b; --cv-star: #eaf3ff; --cv-frost: #cfe6ff;
+      --cv-wood1: #3b3546; --cv-wood2: #221e2c; --cv-frame: #2f2a3c; --cv-ink: #04070d;
+      --cv-screen1: #3d9fd0; --cv-screen2: #11395d; --cv-code: #d6f2ff; --cv-code2: #8fd6f7; --cv-light: #5cc4f0;
+      --cv-warm: #e8a343; --cv-warm2: #a8662a; --cv-metal: #46597c; --cv-metal2: #8ba3cb;
+      --cv-crab: #ec6229; --cv-crab2: #a53613; --cv-crab3: #ffa066;
+    }
+    .cv-f-wall2 { fill: var(--cv-wall2); } .cv-f-wash { fill: var(--cv-wash); } .cv-f-shade { fill: var(--cv-shade); }
+    .cv-f-mist { fill: var(--cv-mist); } .cv-f-mtn4 { fill: var(--cv-mtn4); } .cv-f-moon { fill: var(--cv-moon); }
+    .cv-f-glow { fill: var(--cv-glow); } .cv-f-star { fill: var(--cv-star); } .cv-f-frost { fill: var(--cv-frost); }
+    .cv-f-wood1 { fill: var(--cv-wood1); } .cv-f-wood2 { fill: var(--cv-wood2); } .cv-f-frame { fill: var(--cv-frame); }
+    .cv-f-ink { fill: var(--cv-ink); } .cv-f-light { fill: var(--cv-light); } .cv-f-warm { fill: var(--cv-warm); }
+    .cv-f-warm2 { fill: var(--cv-warm2); } .cv-f-metal { fill: var(--cv-metal); } .cv-f-metal2 { fill: var(--cv-metal2); }
+    .cv-f-crab { fill: var(--cv-crab); } .cv-f-crab2 { fill: var(--cv-crab2); } .cv-f-crab3 { fill: var(--cv-crab3); }
+    .cv-s { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .cv-s-frost { stroke: var(--cv-frost); } .cv-s-frame { stroke: var(--cv-frame); } .cv-s-ink { stroke: var(--cv-ink); }
+    .cv-s-warm { stroke: var(--cv-warm); } .cv-s-warm2 { stroke: var(--cv-warm2); } .cv-s-glow { stroke: var(--cv-glow); }
+    .cv-s-code { stroke: var(--cv-code); } .cv-s-code2 { stroke: var(--cv-code2); } .cv-s-light { stroke: var(--cv-light); }
+    .cv-s-metal { stroke: var(--cv-metal); } .cv-s-metal2 { stroke: var(--cv-metal2); } .cv-s-crab { stroke: var(--cv-crab); }
+    .cv-s-mist { stroke: var(--cv-mist); } .cv-s-moon { stroke: var(--cv-moon); }
+    .cv-grain { mix-blend-mode: multiply; opacity: .55; }
+    .cv-lit { mix-blend-mode: soft-light; }
+    .cv-night { opacity: .5; } .cv-snow { opacity: .85; }
+    :root[data-theme="dark"] .cv-cover .cv-grain { mix-blend-mode: screen; opacity: .2; }
+    :root[data-theme="dark"] .cv-cover .cv-lit { mix-blend-mode: screen; }
+    :root[data-theme="dark"] .cv-cover .cv-night { opacity: 1; }
+    :root[data-theme="dark"] .cv-cover .cv-snow { opacity: .5; }
+  </style>
+  <defs>
+    <!-- Watercolor wash: wobbly outline, pigment granulation, darker wet edge -->
+    <filter id="cv-wc" x="-4%" y="-25%" width="108%" height="150%">
+      <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".07 .12" numOctaves="4" seed="11" result="g"/>
+      <feColorMatrix in="g" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.7 0 0 0 .05" result="ga"/>
+      <feComposite in="d" in2="ga" operator="in" result="p"/>
+      <feGaussianBlur in="d" stdDeviation="1.6" result="b"/>
+      <feComposite in="d" in2="b" operator="out" result="e"/>
+      <feColorMatrix in="e" values=".62 0 0 0 0  0 .62 0 0 0  0 0 .72 0 0  0 0 0 1.5 0" result="rim"/>
+      <feMerge><feMergeNode in="p"/><feMergeNode in="rim"/></feMerge>
+    </filter>
+    <!-- Same idea for small objects -->
+    <filter id="cv-wc2" x="-15%" y="-15%" width="130%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".22" numOctaves="3" seed="3" result="g"/>
+      <feColorMatrix in="g" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .9 0 0 0 .52" result="ga"/>
+      <feComposite in="d" in2="ga" operator="in" result="p"/>
+      <feGaussianBlur in="d" stdDeviation=".8" result="b"/>
+      <feComposite in="d" in2="b" operator="out" result="e"/>
+      <feColorMatrix in="e" values=".6 0 0 0 0  0 .6 0 0 0  0 0 .7 0 0  0 0 0 1.4 0" result="rim"/>
+      <feMerge><feMergeNode in="p"/><feMergeNode in="rim"/></feMerge>
+    </filter>
+    <!-- Wet-on-wet blooms -->
+    <filter id="cv-bloom" x="-30%" y="-60%" width="160%" height="220%">
+      <feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="3" seed="9" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="42" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="5"/>
+    </filter>
+    <filter id="cv-bloom2" x="-30%" y="-60%" width="160%" height="220%">
+      <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="5" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="2.2"/>
+    </filter>
+    <filter id="cv-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="cv-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <!-- Hand-drawn line -->
+    <filter id="cv-ink" x="-10%" y="-20%" width="120%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="2" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Cold-press paper: fine grain + coarser tooth -->
+    <filter id="cv-paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="1" result="a"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".12 .2" numOctaves="3" seed="8" result="c"/>
+      <feComposite in="a" in2="c" operator="arithmetic" k1="0" k2=".6" k3=".4" k4="0"/>
+      <feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .55  0 2.4 0 0 -.85"/>
+    </filter>
+    <clipPath id="cv-pane"><rect x="160" y="20" width="356" height="90"/></clipPath>
+    <clipPath id="cv-scr"><rect x="606" y="32" width="148" height="72" rx="2"/></clipPath>
+    <linearGradient id="cv-g-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--cv-wall2)"/><stop offset=".55" style="stop-color: var(--cv-wall1)"/><stop offset="1" style="stop-color: var(--cv-wall2)"/></linearGradient>
+    <linearGradient id="cv-g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--cv-sky1)"/><stop offset=".62" style="stop-color: var(--cv-sky2)"/></linearGradient>
+    <linearGradient id="cv-g-m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--cv-mtn1)"/><stop offset=".7" style="stop-color: var(--cv-mist); stop-opacity: .75"/></linearGradient>
+    <linearGradient id="cv-g-m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--cv-mtn2)"/><stop offset=".75" style="stop-color: var(--cv-mtn1); stop-opacity: .8"/></linearGradient>
+    <linearGradient id="cv-g-m3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--cv-mtn3)"/><stop offset=".85" style="stop-color: var(--cv-mtn2); stop-opacity: .85"/></linearGradient>
+    <radialGradient id="cv-g-halo"><stop offset="0" style="stop-color: var(--cv-glow); stop-opacity: .8"/><stop offset=".35" style="stop-color: var(--cv-glow); stop-opacity: .28"/><stop offset="1" style="stop-color: var(--cv-glow); stop-opacity: 0"/></radialGradient>
+    <radialGradient id="cv-g-light"><stop offset="0" style="stop-color: var(--cv-light); stop-opacity: .6"/><stop offset=".5" style="stop-color: var(--cv-light); stop-opacity: .2"/><stop offset="1" style="stop-color: var(--cv-light); stop-opacity: 0"/></radialGradient>
+    <radialGradient id="cv-g-screen" cx=".42" cy=".4" r=".75"><stop offset="0" style="stop-color: var(--cv-screen1)"/><stop offset="1" style="stop-color: var(--cv-screen2)"/></radialGradient>
+    <linearGradient id="cv-g-desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--cv-wood2)"/><stop offset="1" style="stop-color: var(--cv-ink); stop-opacity: .85"/></linearGradient>
+    <g id="cv-fern"><path d="M0 0Q12 6 22 16M5 2.500l3 5M5 2.500l5-1M10 6l2.5 5M10 6l5-.5M15 10l2 4M15 10l4 0M19 13.500l1 3M19 13.500l3 .5M0 0Q5 10 6 21M2.5 6l4 2M2.5 6l-2.5 3M5 12l4 2.500M5 12l-3 3M6 17l3 2M0 0Q13 0 25 4M8 .8l3 3.500M8 .8l3-2M15 1.800l3 3M15 1.800l3-2M21 3l2 2.5"/></g>
+  </defs>
+
+  <!-- Wall: flat wash, then wet-on-wet blooms -->
+  <rect width="1000" height="160" fill="url(#cv-g-wall)"/>
+  <g filter="url(#cv-bloom)">
+    <ellipse cx="90" cy="30" rx="170" ry="46" class="cv-f-wash" opacity=".55"/>
+    <ellipse cx="340" cy="60" rx="250" ry="70" class="cv-f-mist" opacity=".3"/>
+    <ellipse cx="560" cy="8" rx="120" ry="30" class="cv-f-wash" opacity=".5"/>
+    <ellipse cx="880" cy="14" rx="210" ry="48" class="cv-f-shade" opacity=".5"/>
+    <ellipse cx="960" cy="92" rx="90" ry="50" class="cv-f-wash" opacity=".55"/>
+    <ellipse cx="60" cy="112" rx="150" ry="30" class="cv-f-shade" opacity=".32"/>
+    <ellipse cx="545" cy="96" rx="46" ry="26" class="cv-f-wash" opacity=".4"/>
+  </g>
+  <g filter="url(#cv-wc)" opacity=".16">
+    <path d="M-10 34C120 26 190 44 150 60S20 66-10 58Z" class="cv-f-shade"/>
+    <path d="M760 28C840 18 960 30 1010 24V70C930 78 820 60 772 66Z" class="cv-f-shade"/>
+    <path d="M520 70C560 64 590 74 588 96S540 112 522 104Z" class="cv-f-wash"/>
+  </g>
+
+  <!-- Window: the landscape -->
+  <g transform="translate(160) scale(.91 1) translate(-160)">
+  <g clip-path="url(#cv-pane)">
+    <rect x="160" y="20" width="356" height="90" fill="url(#cv-g-sky)"/>
+    <g filter="url(#cv-bloom2)">
+      <ellipse cx="230" cy="30" rx="90" ry="14" class="cv-f-shade cv-night" opacity=".18"/>
+      <ellipse cx="390" cy="60" rx="110" ry="7" class="cv-f-mist" opacity=".4"/>
+      <ellipse cx="250" cy="50" rx="70" ry="5" class="cv-f-mist" opacity=".3"/>
+      <ellipse cx="452" cy="44" rx="40" ry="20" class="cv-f-glow" opacity=".22"/>
+    </g>
+    <circle cx="452" cy="44" r="36" fill="url(#cv-g-halo)"/>
+    <g filter="url(#cv-wc2)"><ellipse cx="452" cy="44" rx="9.2" ry="8.4" class="cv-f-moon"/></g>
+    <path d="M448 40q3-1 4 2t-3 3-1-5M455 46q2 0 2 2t-2 1 0-3" class="cv-f-glow" opacity=".35"/>
+    <g class="cv-f-star">
+      <circle cx="190" cy="34" r=".9"/><circle cx="222" cy="27" r="1.2"/><circle cx="262" cy="40" r=".8"/><circle cx="300" cy="28" r="1"/>
+      <circle cx="366" cy="33" r="1.1"/><circle cx="394" cy="26" r=".8"/><circle cx="412" cy="44" r=".7"/><circle cx="492" cy="30" r="1"/><circle cx="503" cy="52" r=".7"/><circle cx="330" cy="46" r=".6"/>
+    </g>
+    <path d="M222 24.4v5.2M219.4 27h5.2M366 30.6v4.8M363.6 33h4.8" class="cv-s cv-s-frost" stroke-width=".5" opacity=".8"/>
+    <g filter="url(#cv-wc)"><path d="M140 72L184 57L212 66L250 49L286 64L318 53L352 67L392 48L428 63L462 55L500 66L536 58V116H140Z" fill="url(#cv-g-m1)"/>
+    <path d="M250 49l-9 5.5 5-.5 2 3 3-3.5 3 3.5 2-2.5 5 2zM392 48l-10 6.5 6-1 2 3.5 3-4 3 3 2-2.5 5 1.500zM318 53l-7 4 4 0 2 2.5 2-3 3 2.5 3-1zM462 55l-7 3.5 4 0 2 2.5 2-3 5 2zM184 57l-7 3.5 4 0 2 2.5 2-3 5 2.500z" class="cv-f-frost cv-snow"/></g>
+    <path d="M140 84L196 70L236 81L282 66L326 80L372 68L414 82L466 70L536 84V116H140Z" fill="url(#cv-g-m2)" filter="url(#cv-wc)"/>
+    <path d="M140 96L210 84L270 93L338 82L400 92L462 85L536 94V116H140Z" fill="url(#cv-g-m3)" filter="url(#cv-wc)"/>
+    <g filter="url(#cv-bloom2)"><ellipse cx="330" cy="98" rx="120" ry="3.5" class="cv-f-mist" opacity=".35"/></g>
+    <g filter="url(#cv-wc)">
+      <path d="M140 106C210 99 300 105 362 101S470 97 536 102V116H140Z" class="cv-f-mtn4"/>
+      <path d="M470 100l3-9 3 9zM478 100l3.5-12 3.5 12zM488 100l3-8 3 8zM497 101l3.5-11 3.5 11zM300 104l2.5-7 2.5 7zM309 104l3-9 3 9z" class="cv-f-mtn4"/>
+    </g>
+    <!-- Road and car -->
+    <g filter="url(#cv-ink)">
+      <path d="M344 112C372 106 356 99 392 96S440 93 474 88" class="cv-s cv-s-glow" stroke-width="1.5" opacity=".55"/>
+      <path d="M474 88C490 86 496 82 510 82" class="cv-s cv-s-glow" stroke-width=".9" opacity=".4"/>
+    </g>
+    <path d="M400 95.4l26-5.4v8z" class="cv-f-glow" opacity=".3" filter="url(#cv-blur)"/>
+    <circle cx="398" cy="95.5" r="11" fill="url(#cv-g-halo)"/>
+    <circle cx="396.4" cy="95.9" r="1.5" class="cv-f-moon"/><circle cx="400.6" cy="95.3" r="1.5" class="cv-f-moon"/>
+    <!-- Glass: reflections and frost -->
+    <path d="M176 110L232 20h16L192 110zM372 110l56-90h7l-56 90z" class="cv-f-frost" opacity=".07"/>
+    <g filter="url(#cv-bloom2)">
+      <ellipse cx="166" cy="22" rx="46" ry="20" class="cv-f-frost" opacity=".6"/>
+      <ellipse cx="512" cy="22" rx="42" ry="16" class="cv-f-frost" opacity=".55"/>
+      <ellipse cx="338" cy="20" rx="26" ry="9" class="cv-f-frost" opacity=".5"/>
+      <ellipse cx="514" cy="108" rx="34" ry="12" class="cv-f-frost" opacity=".42"/>
+      <ellipse cx="340" cy="110" rx="30" ry="6" class="cv-f-frost" opacity=".35"/>
+      <ellipse cx="164" cy="108" rx="30" ry="11" class="cv-f-frost" opacity=".4"/>
+    </g>
+    <g class="cv-s cv-s-frost" stroke-width=".7" opacity=".7" filter="url(#cv-ink)">
+      <use href="#cv-fern" transform="translate(163 23) scale(1.25)"/>
+      <use href="#cv-fern" transform="translate(513 23) scale(-1.15 1.05)"/>
+      <use href="#cv-fern" transform="translate(513 107) scale(-.85 -.8)"/>
+      <use href="#cv-fern" transform="translate(342 23) scale(.7)"/>
+      <use href="#cv-fern" transform="translate(334 23) scale(-.65 .7)"/>
+      <use href="#cv-fern" transform="translate(163 107) scale(.8 -.7)"/>
+      <path d="M476 40v7M473 41.8l6 3.4M473 45.2l6-3.4M214 52v5M211.8 53.3l4.4 2.4M211.8 55.7l4.4-2.4M362 97v5M359.8 98.3l4.4 2.4M359.8 100.7l4.4-2.4"/>
+    </g>
+  </g>
+  <!-- Window frame -->
+  <g filter="url(#cv-wc2)">
+    <rect x="160" y="20" width="356" height="90" rx="2" class="cv-s cv-s-frame" stroke-width="7"/>
+    <path d="M338 20v90" class="cv-s cv-s-frame" stroke-width="5.5"/>
+    <path d="M150 109h376l-3 8H153z" class="cv-f-frame"/>
+  </g>
+  <g class="cv-s" filter="url(#cv-ink)">
+    <path d="M164.5 106V24.5h169.5M342.5 106V24.5h169" class="cv-s-ink" stroke-width="1.1" opacity=".3"/>
+    <path d="M157 113V17.5h362M152 109.6h372" class="cv-s-moon" stroke-width=".9" opacity=".4"/>
+    <path d="M154 117.4h370" class="cv-s-ink" stroke-width="1.4" opacity=".3"/>
+  </g>
+
+  </g>
+
+  <g transform="translate(-36)">
+  <!-- Light: monitor halo on the wall -->
+  <ellipse cx="682" cy="72" rx="210" ry="96" fill="url(#cv-g-light)" class="cv-lit"/>
+  <ellipse cx="682" cy="70" rx="120" ry="62" fill="url(#cv-g-light)" opacity=".7"/>
+
+  <!-- Sticky notes on the wall -->
+  <g filter="url(#cv-wc2)">
+    <path d="M792 44l15-2 2 14-15 2z" class="cv-f-warm" opacity=".85"/>
+    <path d="M813 50l14 1-1 14-14-1z" class="cv-f-frost" opacity=".6"/>
+    <path d="M796 64l13-2 2 13-13 2z" class="cv-f-light" opacity=".7"/>
+  </g>
+  <path d="M796 48l8-1M797 52l6-.8M816 55l8 .5M816 59l6 .4M800 68l7-1" class="cv-s cv-s-ink" stroke-width=".8" opacity=".35"/>
+
+  <!-- Workbench -->
+  <path d="M0 114h1050v10H0z" class="cv-f-ink" opacity=".3" filter="url(#cv-soft)"/>
+  <g filter="url(#cv-wc)">
+    <path d="M-10 120L1050 117V139H-10Z" class="cv-f-wood1"/>
+  </g>
+  <g filter="url(#cv-wc)">
+    <path d="M-10 138L1050 136V170H-10Z" fill="url(#cv-g-desk)"/>
+  </g>
+  <g class="cv-s" filter="url(#cv-ink)">
+    <path d="M0 124.5C180 122.6 300 125.4 470 123.4S800 121.6 1040 122.4M0 131.6C220 129.6 420 132.4 610 130.2S860 131 1040 129" class="cv-s-ink" stroke-width=".7" opacity=".16"/>
+    <path d="M0 138.4L1040 136.2" class="cv-s-mist" stroke-width="1" opacity=".4"/>
+    <path d="M0 146C200 143.6 420 148.6 640 145S900 147 1040 144M0 153C260 151 500 155 760 152S940 153 1040 151.6" class="cv-s-ink" stroke-width=".8" opacity=".22"/>
+    <path d="M268 139.4v20M588 138.6v21M842 138v22" class="cv-s-ink" stroke-width=".9" opacity=".25"/>
+  </g>
+  <!-- Light pooling on the bench -->
+  <g filter="url(#cv-soft)">
+    <ellipse cx="682" cy="128" rx="150" ry="9" class="cv-f-light cv-lit" opacity=".75"/>
+    <ellipse cx="392" cy="127" rx="130" ry="6" class="cv-f-moon cv-lit" opacity=".4"/>
+  </g>
+
+  <!-- Monitor -->
+  <ellipse cx="680" cy="123.5" rx="40" ry="3" class="cv-f-ink" opacity=".35" filter="url(#cv-blur)"/>
+  <g filter="url(#cv-wc2)">
+    <path d="M673 110h14l2 11h-18z" class="cv-f-ink"/>
+    <ellipse cx="680" cy="122" rx="27" ry="3.2" class="cv-f-ink"/>
+    <rect x="600" y="26" width="160" height="86" rx="5" class="cv-f-ink"/>
+  </g>
+  <rect x="606" y="32" width="148" height="72" rx="2" fill="url(#cv-g-screen)"/>
+  <g clip-path="url(#cv-scr)">
+    <g filter="url(#cv-bloom2)">
+      <ellipse cx="640" cy="50" rx="46" ry="16" class="cv-f-frost" opacity=".22"/>
+      <ellipse cx="730" cy="98" rx="40" ry="14" class="cv-f-ink" opacity=".16"/>
+    </g>
+    <path d="M606 32h10v72h-10z" class="cv-f-ink" opacity=".14"/>
+    <path d="M718 32h36v72h-36z" class="cv-f-ink" opacity=".1"/>
+    <g class="cv-s" stroke-width="2.6" filter="url(#cv-ink)">
+      <path d="M622 41h16M622 73h12M632 97h10" class="cv-s-warm"/>
+      <path d="M644 41h40M630 49h54M630 57h26M640 73h54M630 81h36M630 89h18" class="cv-s-code" opacity=".85"/>
+      <path d="M690 49h18M662 57h30M672 81h22M654 89h44M622 97h5" class="cv-s-code2" opacity=".9"/>
+      <path d="M622 65h8" class="cv-s-crab"/>
+      <path d="M636 65h44" class="cv-s-code" opacity=".5"/>
+      <path d="M724 40h22M724 46h14M724 56h24M724 62h18M724 68h10" class="cv-s-code" stroke-width="1.6" opacity=".4"/>
+      <path d="M724 82h24v14h-24z" class="cv-s-code2" stroke-width="1" opacity=".6"/>
+      <path d="M727 93l5-5 4 3 5-7 4 4" class="cv-s-warm" stroke-width="1.2"/>
+    </g>
+    <path d="M610.5 41v0M610.5 49v0M610.5 57v0M610.5 65v0M610.5 73v0M610.5 81v0M610.5 89v0M610.5 97v0" class="cv-s cv-s-code" stroke-width="1.5" opacity=".45"/>
+    <rect x="646" y="94" width="3.4" height="6" class="cv-f-moon" opacity=".9"/>
+    <path d="M700 32l22 0-40 72-16 0z" class="cv-f-frost" opacity=".07"/>
+  </g>
+  <path d="M602 28.5h156" class="cv-s cv-s-metal2" stroke-width=".8" opacity=".35"/>
+  <circle cx="680" cy="108" r=".9" class="cv-f-light"/>
+
+  <!-- Keyboard -->
+  <path d="M606 138h150l3 2H603z" class="cv-f-ink" opacity=".3" filter="url(#cv-blur)"/>
+  <g filter="url(#cv-wc2)"><path d="M613 126.5L747 125.5L754 136L606 137Z" class="cv-f-ink"/></g>
+  <g class="cv-s cv-s-light" stroke-width="1.5" stroke-linecap="butt" opacity=".65">
+    <path d="M616 128.3L745 127.4" stroke-dasharray="5.2 1.8"/>
+    <path d="M613.5 131L747.5 130.1" stroke-dasharray="5.6 1.8"/>
+    <path d="M611 133.9L643 133.7M647 133.7L708 133.3M712 133.3L750 133.1" stroke-dasharray="6 1.8"/>
+  </g>
+  <path d="M647 133.7L708 133.3" class="cv-s cv-s-light" stroke-width="1.5" opacity=".5"/>
+
+  <!-- Crab figurine -->
+  <ellipse cx="567" cy="128.4" rx="16" ry="2.2" class="cv-f-ink" opacity=".35" filter="url(#cv-blur)"/>
+  <g filter="url(#cv-wc2)">
+    <path d="M556 121.5l-6-5M578 121.5l6-5M557 125l-4.5 3.2M560.5 126.3l-2.6 3.2M573.5 126.3l2.6 3.2M577 125l4.5 3.2" class="cv-s cv-s-crab" stroke-width="2"/>
+    <path d="M562.5 115.5l-1.2-5M571.5 115.5l1.2-5" class="cv-s cv-s-crab" stroke-width="1.5"/>
+    <path d="M548 108.6a4.3 4.3 0 1 0 4.3 4.3h-4.3zM586 108.6a4.3 4.3 0 1 1-4.3 4.3h4.3z" class="cv-f-crab"/>
+    <path d="M554.5 122.5q0-9.5 12.5-9.5t12.5 9.5q0 4.5-12.5 4.5t-12.5-4.5z" class="cv-f-crab"/>
+  </g>
+  <path d="M555.5 123.5q4 3.6 11.5 3.6t11.5-3.6q-1 4-11.5 4t-11.5-4z" class="cv-f-crab2" opacity=".8"/>
+  <path d="M559 118.500q2-3.8 7-4.3-3 2-4 5.300z" class="cv-f-crab3" opacity=".75"/>
+  <path d="M577.6 117.500q1.8 2.6 1.5 5.500M589.2 110.500q1.2 2 .6 4.2" class="cv-s cv-s-light" stroke-width=".9" opacity=".8"/>
+  <circle cx="561.2" cy="110" r="1.9" class="cv-f-moon"/><circle cx="572.8" cy="110" r="1.9" class="cv-f-moon"/>
+  <circle cx="561.7" cy="110.2" r=".95" fill="#0b0f18"/><circle cx="573.3" cy="110.2" r=".95" fill="#0b0f18"/>
+  <path d="M564.5 121.800q2.5 1.6 5 0" class="cv-s" stroke="#0b0f18" stroke-width=".8" opacity=".7"/>
+
+  <!-- Mug and steam -->
+  <ellipse cx="801" cy="125.2" rx="15" ry="2" class="cv-f-ink" opacity=".35" filter="url(#cv-blur)"/>
+  <g filter="url(#cv-wc2)">
+    <path d="M808.5 106.500q8.5-.5 8 6.500t-9.5 6" class="cv-s cv-s-warm" stroke-width="2.6"/>
+    <path d="M790 102h18.500l-1.5 20q-.3 2.5-3 2.500h-9.500q-2.7 0-3-2.500z" class="cv-f-warm"/>
+  </g>
+  <path d="M802 103h6.500l-1.5 19q-.3 2.5-3 2.500h-3q2-10 1-21.500z" class="cv-f-warm2" opacity=".6"/>
+  <ellipse cx="799.2" cy="102.3" rx="9.2" ry="1.8" class="cv-f-warm2"/>
+  <ellipse cx="799.2" cy="102.5" rx="7.4" ry="1.1" class="cv-f-ink" opacity=".6"/>
+  <path d="M792.3 105.500l1.2 15" class="cv-s cv-s-light" stroke-width="1.3" opacity=".8"/>
+  <path d="M790.5 110.500h17.500M791 113.500h17" class="cv-s cv-s-moon" stroke-width=".9" opacity=".45"/>
+  <g class="cv-s cv-s-frost" filter="url(#cv-blur)">
+    <path d="M796 98C792 92 801 88 796.5 81C793.5 76 800 72 797.5 66" stroke-width="2.2" opacity=".5"/>
+    <path d="M803 97C799.5 91 807 87 803 80C801 76 805 73 804 70" stroke-width="1.7" opacity=".38"/>
+  </g>
+
+  </g>
+
+  <!-- Gears and screwdriver -->
+  <ellipse cx="888" cy="120.4" rx="26" ry="2" class="cv-f-ink" opacity=".3" filter="url(#cv-blur)"/>
+  <g filter="url(#cv-wc2)">
+    <circle cx="880" cy="104" r="12" class="cv-s cv-s-metal" stroke-width="4.4" stroke-dasharray="3.77 3.77" stroke-linecap="butt"/>
+    <circle cx="880" cy="104" r="10.5" class="cv-f-metal"/>
+    <circle cx="902" cy="110.5" r="7.4" class="cv-s cv-s-metal" stroke-width="3.4" stroke-dasharray="2.906 2.906" stroke-linecap="butt"/>
+    <circle cx="902" cy="110.5" r="6.3" class="cv-f-metal"/>
+  </g>
+  <circle cx="880" cy="104" r="6.6" class="cv-s cv-s-metal2" stroke-width="1" opacity=".55"/>
+  <circle cx="880" cy="104" r="3.2" class="cv-f-wall2"/><circle cx="902" cy="110.5" r="2.2" class="cv-f-wall2"/>
+  <path d="M870.5 100q2-6 8-7.500M896.3 108.500q1.5-3.5 5-4" class="cv-s cv-s-light" stroke-width="1.2" opacity=".75"/>
+  <path d="M836 133.600L908 128" class="cv-s cv-s-ink" stroke-width="2.4" opacity=".28" filter="url(#cv-blur)"/>
+  <g filter="url(#cv-wc2)">
+    <path d="M866 129.300L906 126.2" class="cv-s cv-s-metal2" stroke-width="1.7"/>
+    <path d="M838 131.400L864 129.4" class="cv-s cv-s-warm" stroke-width="5.4"/>
+    <path d="M864.5 129.400l3.5-.3" class="cv-s cv-s-metal" stroke-width="4" stroke-linecap="butt"/>
+  </g>
+  <path d="M839 130.200L863 128.3" class="cv-s cv-s-moon" stroke-width=".9" opacity=".5"/>
+  <path d="M844 133.600l16-1.3" class="cv-s cv-s-warm2" stroke-width="1.4" opacity=".8"/>
+  <g filter="url(#cv-wc2)">
+    <ellipse cx="938" cy="128.5" rx="8" ry="2.8" class="cv-s cv-s-metal" stroke-width="2.6" stroke-dasharray="2.4 2" stroke-linecap="butt"/>
+    <ellipse cx="938" cy="128.5" rx="6.5" ry="2.2" class="cv-f-metal"/>
+  </g>
+  <ellipse cx="938" cy="128.5" rx="2.2" ry=".8" class="cv-f-ink" opacity=".6"/>
+
+  <!-- Corner vignette, then paper grain -->
+  <g filter="url(#cv-bloom)">
+    <ellipse cx="1000" cy="160" rx="130" ry="34" class="cv-f-shade" opacity=".4"/>
+    <ellipse cx="20" cy="0" rx="120" ry="22" class="cv-f-shade" opacity=".3"/>
+  </g>
+  <rect width="1000" height="160" filter="url(#cv-paper)" class="cv-grain"/>
+</svg>
