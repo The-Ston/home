@@ -22,5 +22,5 @@ export const PROFILE = {
   // Public GitHub avatar of The-Ston (user id 209157140).
   githubAvatar: "https://avatars.githubusercontent.com/u/209157140?v=4",
   tagline:
-    "Mes projets perso : applis, outils et expérimentations. Le code est ouvert, les retours sont les bienvenus.",
+    "Mes projets perso : applis, outils et expérimentations. Le code est public, les retours sont les bienvenus.",
 };

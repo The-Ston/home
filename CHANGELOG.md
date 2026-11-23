@@ -4,6 +4,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versio
 
 ## [Unreleased]
 
+### Added
+- `LICENSE` file stating all rights are reserved (`"license": "UNLICENSED"` in `package.json`).
+
+### Changed
+- Profile tagline says the code is public rather than open.
+
 ## [0.2.0] - 2026-11-23
 
 ### Added
