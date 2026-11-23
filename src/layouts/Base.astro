@@ -2,6 +2,8 @@
 import "../styles/base.css";
 import { PROFILE } from "../projects";
 import { version } from "../../package.json";
+import { getImage } from "astro:assets";
+import { avatarSource } from "../lib/images";
 import DevTools from "../components/DevTools.astro";
 
 interface Props {
@@ -14,6 +16,9 @@ interface Props {
 }
 const { title, description, image, skipTo, skipLabel } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// Tab icon: the profile picture when present (transparent PNG), else the SVG monogram.
+const iconOf = (size: number) => (avatarSource ? getImage({ src: avatarSource, width: size, height: size, format: "png" }) : null);
+const [favicon, touchIcon] = await Promise.all([iconOf(64), iconOf(180)]);
 ---
 <!doctype html>
 <html lang="fr">
@@ -23,7 +28,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {favicon ? <link rel="icon" href={favicon.src} type="image/png" sizes="64x64" /> : <link rel="icon" href="/favicon.svg" type="image/svg+xml" />}
+    {touchIcon && <link rel="apple-touch-icon" href={touchIcon.src} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={PROFILE.name} />
     <meta property="og:title" content={title} />

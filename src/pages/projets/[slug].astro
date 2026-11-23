@@ -40,7 +40,7 @@ const others = await Promise.all(
 );
 const ogImage = d.cover && /^https?:/.test(d.cover) ? d.cover : undefined;
 ---
-<Base title={`${d.name} — ${PROFILE.name}`} description={d.description} image={ogImage} skipTo="#contenu" skipLabel="Aller au contenu">
+<Base title={`${d.name} - ${PROFILE.name}`} description={d.description} image={ogImage} skipTo="#contenu" skipLabel="Aller au contenu">
   <header class="wrap topbar">
     <a class="btn" id="back" href="/"><Icon name="back" size={17} /><span>Tous les projets</span></a>
     <a class="brand" href="/">{PROFILE.name}</a>
