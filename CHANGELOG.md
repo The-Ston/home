@@ -4,12 +4,6 @@ Format based on [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versio
 
 ## [Unreleased]
 
-### Added
-- `LICENSE` file stating all rights are reserved (`"license": "UNLICENSED"` in `package.json`).
-
-### Changed
-- Profile tagline says the code is public rather than open.
-
 ## [0.2.0] - 2026-11-23
 
 ### Added
@@ -19,12 +13,14 @@ Format based on [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versio
 - "Signaler / suggérer" button in the feedback section of project pages.
 - The profile picture is used as the tab icon and the home screen icon.
 - Development only: Agentation annotation toolbar in `astro dev`, with notes saved to `.agentation/`.
+- `LICENSE` file stating all rights are reserved (`"license": "UNLICENSED"` in `package.json`).
 
 ### Changed
 - Real project icons sit on a neutral background instead of the generated gradient.
 - The GitHub avatar in the GitHub button sits on a background that contrasts with the button.
 - The repository name in the project info sheet is shown under its label.
 - Page titles use a plain hyphen instead of an em dash.
+- Profile tagline says the code is public rather than open.
 
 ### Removed
 - "Étiquettes" counter in the home profile.
