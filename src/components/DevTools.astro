@@ -1,0 +1,19 @@
+---
+// Dev-only tooling. Rendered from Base.astro behind `import.meta.env.DEV`,
+// so nothing here ships in the production build.
+---
+<script>
+  // Agentation: click elements to annotate them, then copy structured
+  // feedback (selectors, text, positions) to paste into an AI agent.
+  if (import.meta.env.DEV) {
+    const [{ createElement }, { createRoot }, { Agentation }] = await Promise.all([
+      import("react"),
+      import("react-dom/client"),
+      import("agentation"),
+    ]);
+    const host = document.createElement("div");
+    host.id = "agentation-root";
+    document.body.appendChild(host);
+    createRoot(host).render(createElement(Agentation));
+  }
+</script>
