@@ -4,6 +4,29 @@ Format based on [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versio
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-23
+
+### Added
+- Watercolor cover illustration on the home profile (a workbench facing a frosted window onto
+  night mountains), whose palette follows the light and dark themes.
+- `iconBackground` field in `showcase/project.md`: color behind a project's icon.
+- "Signaler / suggérer" button in the feedback section of project pages.
+- The profile picture is used as the tab icon and the home screen icon.
+- Development only: Agentation annotation toolbar in `astro dev`, with notes saved to `.agentation/`.
+
+### Changed
+- Real project icons sit on a neutral background instead of the generated gradient.
+- The GitHub avatar in the GitHub button sits on a background that contrasts with the button.
+- The repository name in the project info sheet is shown under its label.
+- Page titles use a plain hyphen instead of an em dash.
+
+### Removed
+- "Étiquettes" counter in the home profile.
+- Decorative circles on the home cover.
+
+### Fixed
+- Repository names no longer wrap mid-name in the project info sheet.
+
 ## [0.1.0] - 2026-11-18
 
 First numbered version, covering everything built since the project started.
@@ -23,5 +46,6 @@ First numbered version, covering everything built since the project started.
 ### Fixed
 - Remote images are no longer cropped when resized.
 
-[Unreleased]: https://github.com/The-Ston/home/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/The-Ston/home/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/The-Ston/home/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/The-Ston/home/releases/tag/v0.1.0
